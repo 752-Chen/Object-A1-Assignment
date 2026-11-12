@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 /**
  * Astract class representing a health professional
+ * It defines common attributes and abstract methods for all medical staff.
  * @author Ruochen Huang
  * @studentId 25258761
- * HealthProfessional
  */
 public abstract class HealthProfessional {
     // Unique identification number of the health professional
@@ -16,12 +16,14 @@ public abstract class HealthProfessional {
     private ArrayList<String> workingDays;
 
     public HealthProfessional(){
+        workingDays = new ArrayList<>();
     }
 
-    public HealthProfessional(int id, String name, String specialty){
+    public HealthProfessional(int id, String name, String specialty, ArrayList<String> workingDays){
         this.id = id;
         this.name = name;
         this.specialty = specialty;
+        this.workingDays = workingDays;
     }
 
     // Getter & Setter
@@ -64,6 +66,6 @@ public abstract class HealthProfessional {
         return "ID: " + id
                 + " | Name: " + name
                 + " | Specialty: " + specialty
-                + " | Working days: " + workingDays;
+                + " | WorkingDays: " + workingDays;
     }
 }
