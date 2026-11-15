@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 /**
  * AppointmentManager manages collection of day‑only appointments
  * Contains business rules: double‑booking prevention, patient private view, cancel‑before‑time rule
- * Clinic valid slots: 08:00‑12:00 & 15:00-!8-00 every 15 minutes
+ * Clinic valid slots: 08:00-16:00 every 30 minutes
  * @author Ruochen Huang
  * @studentId 25258761
  */
@@ -12,6 +13,13 @@ public class AppointmentManager {
     private final ArrayList<Appointment> allAppointments;
     // The current time of the simulation system, used to detemine whether to allow the cancellation of the appointment
     private String simulationCurrentTime;
+    private static final ArrayList<String> VALID_SLOTS = new ArrayList<>(
+        List.of("08:00", "08:30", "09:00", "09:30",
+                "10:00", "10:30", "11:00", "11:30",
+                "12:00", "12:30", "13:00", "13:30",
+                "14:00", "14:30", "15:00", "15:30",
+                "16:00")
+);
 
     /**
      * Construct the manager object
@@ -23,29 +31,20 @@ public class AppointmentManager {
     }
 
     /**
-     * Check if time slot is valid clinic slot (08:00‑12:00,15:00-18:00, 15‑min interval)
+     * Check if time slot is valid clinic slot (08:00-16:00, 30‑min interval)
      * @param slot time string "HH:mm"
      * @return true if valid
      */
-    public boolean isValidTimeSlot(String slot) {
-        ArrayList<String> validSlots = new ArrayList<>();
-        validSlots.add("08:00"); validSlots.add("08:15"); validSlots.add("08:30"); validSlots.add("08:45");
-        validSlots.add("09:00"); validSlots.add("09:15"); validSlots.add("09:30"); validSlots.add("09:45");
-        validSlots.add("10:00"); validSlots.add("10:15"); validSlots.add("10:30"); validSlots.add("10:45");
-        validSlots.add("11:00"); validSlots.add("11:15"); validSlots.add("11:30"); validSlots.add("11:45");
-        validSlots.add("12:00"); validSlots.add("12:15"); validSlots.add("12:30"); validSlots.add("12:45");
-        validSlots.add("15:00"); validSlots.add("15:15"); validSlots.add("15:30"); validSlots.add("15:45");
-        validSlots.add("16:00"); validSlots.add("16:15"); validSlots.add("16:30"); validSlots.add("16:45");
-        validSlots.add("17:00"); validSlots.add("17:15"); validSlots.add("17:30"); validSlots.add("17:45");
-        return validSlots.contains(slot);
+    public boolean isValidTimeSlot(String slot) { 
+        return VALID_SLOTS.contains(slot);
     }
 
     /**
      * Check: does this health professional already have booking in this time slot (double‑booking check)
      */
-    private boolean isStaffBookedAtSlot(int staffId, String targetSlot) {
+    private boolean isStaffBookedAtSlot(HealthProfessional hp, String targetSlot) {
         for (Appointment apt : allAppointments) {
-            if (apt.getAssignedProfessional().getId() == staffId && apt.getTimeSlot().equals(targetSlot)) {
+            if (apt.getAssignedProfessional().equals(hp) && apt.getTimeSlot().equals(targetSlot)) {
                 return true;
             }
         }
@@ -71,10 +70,10 @@ public class AppointmentManager {
             System.out.println("[WARNING] Add failed: cannot book a time slot that has already passed.");
         return false;
         }
-        int staffId = newApt.getAssignedProfessional().getId();
+        HealthProfessional hp = newApt.getAssignedProfessional();
         String slot = newApt.getTimeSlot();
-        if (isStaffBookedAtSlot(staffId, slot)) {
-            System.out.println("[WARNING] Add failed: this staff ID " + staffId + " already booked at " + slot + " (double-booking)");
+        if (isStaffBookedAtSlot(hp, slot)) {
+            System.out.println("[WARNING] Add failed: this staff (ID: " + hp.getId() + ") already booked at " + slot + " (double-booking)");
             return false;
         }
         allAppointments.add(newApt);
