@@ -10,14 +10,12 @@ public abstract class HealthProfessional {
     private int id;
     // Name of medical staff
     private String name;
-    // Specialized Department Direction
-    private String specialty;
-    // Weekiy workday assembly
-    private ArrayList<String> workingDays;
-    //Gender
+    // Gender
     private String gender;
     // Title and Rank
     private String title;
+    // Weekiy workday assembly
+    private ArrayList<String> workingDays;
 
     public HealthProfessional(){
         workingDays = new ArrayList<>();
@@ -27,18 +25,16 @@ public abstract class HealthProfessional {
      * Parameterized construction,initializing all public attributes of medical staff
      * @param id
      * @param name
-     * @param specialty
-     * @param workingDays
      * @param gender
      * @param title
+     * @param workingDays
      */
     public HealthProfessional(int id, String name, String specialty, ArrayList<String> workingDays, String gender, String title){
         this.id = id;
         this.name = name;
-        this.specialty = specialty;
-        this.workingDays = workingDays;
         this.gender = gender;
         this.title = title;
+        this.workingDays = workingDays;
     }
 
     // Getter & Setter
@@ -61,16 +57,6 @@ public abstract class HealthProfessional {
     // Set the names of the medical staff
     public void setName(String name){
         this.name = name;
-    }
-
-    // Obtain the affiliated specialty
-    public String getSpecialty(){
-        return specialty;
-    }
-
-    // Set the affiliated specilty
-    public void setSpecialty(String specialty){
-        this.specialty = specialty;
     }
 
     // Obtain available appointment dates
@@ -108,13 +94,29 @@ public abstract class HealthProfessional {
      */
     public abstract void printDetails();
 
+    /**    (non-Javadoc)
+     * Two health professionals are equal if they share the same ID
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override 
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        HealthProfessional other = (HealthProfessional) obj;
+        return this.id == other.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(id);
+    }
+
     @Override 
     public String toString(){
         return "ID: " + id
                 + " | Name: " + name
                 + " | Title: " + title
                 + " | Gender: " + gender
-                + " | Specialty: " + specialty
                 + " | WorkingDays: " + workingDays;
     }
 }
