@@ -46,7 +46,7 @@ public class AssignmentOne {
         2001,
         "Dr. Bob Lee",
         "Cardiology",
-        new ArrayList<>(List.of("Monday", "Wedneaday", "Firday")),
+        new ArrayList<>(List.of("Monday", "Wednesday", "Firday")),
         "Male",
         "Senior Specialist",
         "Heart Failure Clinic"
@@ -116,7 +116,7 @@ public class AssignmentOne {
 
         // Teat for repeated appointment failed
         System.out.println("\n Test error case 1: double-booking same staff same slot");
-        Appointment conflictApt   = new Appointment("Fake Patient", "0433333333", "09:00", gp1);
+        Appointment conflictApt = new Appointment("Fake Patient", "0433333333", "09:00", gp1);
         manager.addAppointment(conflictApt);
 
         // Error occurred during the illegal time period test
