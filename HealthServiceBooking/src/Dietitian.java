@@ -6,25 +6,47 @@ import java.util.ArrayList;
  * @studentId 25258761
  */
 public class Dietitian extends HealthProfessional{
+    // Nutrition research direction
     private String nutritionFocus;
 
+    /**
+     * Parameter-free construction
+     */
     public Dietitian(){
         super();
     }
 
-    public Dietitian(int id, String name, String specialty, ArrayList<String> workingDays, String nutritionFocus) {
-        super(id, name, specialty, workingDays);
+    /**
+     * Parameterized construction
+     * @param id
+     * @param name
+     * @param specialty
+     * @param workingDays
+     * @param gender
+     * @param title
+     * @param nutritionFocus
+     */
+    public Dietitian(int id, String name, String specialty, ArrayList<String> workingDays, String gender, String title, String nutritionFocus) {
+        super(id, name, specialty, workingDays, gender, title);
         this.nutritionFocus = nutritionFocus;
     }
 
+    // Getter & Setter
+
+    // Obtain a major in nutrition direction
     public String getNutritionFocus() {
         return nutritionFocus;
     }
 
+    // Set a major in nutrition direction
     public void setNutritionFocus(String nutritionFocus) {
         this.nutritionFocus = nutritionFocus;
     }
 
+    /**    (non-Javadoc)
+     * Implement the abstract method to print the complete information of the nutritionist
+     * @see HealthProfessional#printDetails()
+     */
     @Override
     public void printDetails() {
         System.out.println("===== Dietitian =====");

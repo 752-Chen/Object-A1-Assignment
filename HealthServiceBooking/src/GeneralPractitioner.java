@@ -8,25 +8,45 @@ import java.util.ArrayList;
  */
 
 public class GeneralPractitioner extends HealthProfessional{
+    // Set the professional title
     private String serviceArea;
 
+    /**
+     * Parameter-free construction
+     */
     public GeneralPractitioner(){
         super();
     }
 
-    public GeneralPractitioner(int id, String name, String specialty, ArrayList<String> workingDays, String serviceArea) {
-        super(id, name, specialty, workingDays);
+    /**
+     * Parameterized construction
+     * @param id
+     * @param name
+     * @param specialty
+     * @param workingDays
+     * @param gender
+     * @param title
+     * @param serviceArea
+     */
+    public GeneralPractitioner(int id, String name, String specialty, ArrayList<String> workingDays, String gender, String title, String serviceArea) {
+        super(id, name, specialty, workingDays, gender, title);
         this.serviceArea = serviceArea;
     }
 
+    //Obtain the service area of a general practitioner
     public String getServiceArea(){
         return serviceArea;
     }
 
+    // Set up service areas for general practitioners
     public void setServiceArea(String serviceArea) {
         this.serviceArea = serviceArea;
     }
 
+    /**    (non-Javadoc)
+     * Implement the abstract method to print the complete information of the general practitioner.
+     * @see HealthProfessional#printDetails()
+     */
     @Override
     public void printDetails() {
         System.out.println("General Practitioner");

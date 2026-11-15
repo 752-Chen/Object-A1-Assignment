@@ -6,25 +6,47 @@ import java.util.ArrayList;
  * @studentId 25258761
  */
 public class Nurse extends HealthProfessional{
+    // The affiliated ward department
     private String ward;
 
+    /**
+     * Parameter-free construction
+     */
     public Nurse(){
         super();
     }
 
-    public Nurse(int id, String name, String specialty, ArrayList<String> workingDays, String ward) {
-        super(id, name, specialty, workingDays);
+    /**
+     * Parameteried construction
+     * @param id
+     * @param name
+     * @param specialty
+     * @param workingDays
+     * @param gender
+     * @param title
+     * @param ward
+     */
+    public Nurse(int id, String name, String specialty, ArrayList<String> workingDays, String gender, String title, String ward) {
+        super(id, name, specialty, workingDays, gender, title);
         this.ward = ward;
     }
 
+    // Getter & Setter
+
+    // Obtain the assigned ward
     public String getWard() {
         return ward;
     }
 
+    // Set the assigned ward
     public void setWard(String ward) {
         this.ward = ward;
     }
 
+    /**    (non-Javadoc)
+     * Implement the abstract method to print the complete information of the nurse
+     * @see HealthProfessional#printDetails()
+     */
     @Override
     public void printDetails() {
         System.out.println("Nurse");
