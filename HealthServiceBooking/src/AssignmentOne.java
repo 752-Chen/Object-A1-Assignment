@@ -137,6 +137,15 @@ public class AssignmentOne {
         manager.sortAllAppointmentsByTime();
         manager.printAllAppointmentsAdminView();
 
+        // Required demo: filter by staff ID and sort subset
+        System.out.println("\n[DEMO] Filter appointments for specialist doctor (ID:2001), then sort this subset");
+        ArrayList<Appointment> doctorAppts = manager.filterByHealthProfessionalId(2001);
+        manager.sortAppointmentSubset(doctorAppts);
+        System.out.println("Appointments belong to this specialist after sorting:");
+        for(Appointment apt : doctorAppts){
+            apt.printAppointment();
+        }
+
         // Cancel the appointment normally
         System.out.println("\n Test normal cancel: patient Tom cancel one appointment (time not passed yet)");
         manager.cancelByPatientMobile("0411111111");
@@ -144,7 +153,7 @@ public class AssignmentOne {
         System.out.println("\n After cancel, Tom view his own appointments");
         manager.printPatientOwnAppointmentView("0411111111");
 
-        // Simulate time passes: clock jumps to "11:00", appointment "10:45" time is already past
+        // Simulate time passes: clock jumps to "11:00", appointment "10:30" time is already past
         System.out.println("\n Simulate time passes, simulation clock becomes 11:00");
         manager.setSimulationCurrentTime("11:00");
         System.out.println("Try to cancel Tom remaining appointment (slot is 10:45 which is earlier than now 11:00):");
@@ -155,6 +164,7 @@ public class AssignmentOne {
         manager.cancelByPatientMobile("9999999999");
 
         System.out.println("\n ALL DEMONSTRATION FINISHED ");
+        System.out.println("\n Now entering patient interactive booking menu");
 
         // Interactive console menu
         Scanner scanner = new Scanner(System.in);
