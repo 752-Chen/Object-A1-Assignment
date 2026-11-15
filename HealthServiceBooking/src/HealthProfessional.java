@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 /**
- * Astract class representing a health professional
+ * Abstract class representing a health professional
  * It defines common attributes and abstract methods for all medical staff.
  * @author Ruochen Huang
  * @studentId 25258761
@@ -74,7 +74,7 @@ public abstract class HealthProfessional {
     }
 
     // Obtain available appointment dates
-    public ArrayList<String> getWorkingDats(){
+    public ArrayList<String> getWorkingDays(){
         return workingDays;
     }
 
