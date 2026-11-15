@@ -232,13 +232,13 @@ public class AssignmentOne {
                     System.out.print("Enter your mobile phone number: ");
                     String mobile = scanner.nextLine();
 
-                    Appointment newApt = new Appointment(pName,mobile,timeSlot,selectedHp);
-                    boolean ok = manager.addAppointment(newApt);
                     // Check mobile length: exactiy 10 digits
                     if(mobile.length()!= 10 || !mobile.matches("[0-9]+")){
                         System.out.println("[WARNING] Invalid mobile number! It must be exactly to digits.");
                         continue;
                     }
+                    Appointment newApt = new Appointment(pName,mobile,timeSlot,selectedHp);
+                    boolean ok = manager.addAppointment(newApt);
                     if(ok){
                         System.out.println(" Appointment saved successfully!");
                     }
