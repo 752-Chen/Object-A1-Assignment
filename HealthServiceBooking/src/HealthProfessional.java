@@ -38,7 +38,6 @@ public abstract class HealthProfessional {
     }
 
     // Getter & Setter
-
     // Obtain the medical staff identification number
     public int getId(){
         return id;
