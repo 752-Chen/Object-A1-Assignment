@@ -22,6 +22,18 @@ public class Appointment implements Comparable<Appointment>{
      * @param assignedProfessional
      */
     public Appointment(String patientName, String patientMobile, String timeSlot, HealthProfessional assignedProfessional) {
+        if (patientName == null || patientName.isBlank()){
+            throw new IllegalArgumentException("Patient name cannot be empty.");
+        }
+        if(patientMobile == null || patientMobile.isBlank()){
+            throw new IllegalArgumentException("Mobile number cannot be empty.");
+        }
+        if(timeSlot == null || timeSlot.isBlank()){
+            throw new IllegalArgumentException("Time slot cannot be empty.");
+        }
+        if(assignedProfessional == null){
+            throw new IllegalArgumentException("Health professional cannot be null.");
+        }
         this.patientName = patientName;
         this.patientMobile = patientMobile;
         this.timeSlot = timeSlot;
@@ -63,7 +75,7 @@ public class Appointment implements Comparable<Appointment>{
     }
 
     /**    (non-Javadoc)
-     * Compare two reservations and sort them in ascending order by time period for grouping.
+     * Compare appointments by time slot for sorting
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override
@@ -71,11 +83,22 @@ public class Appointment implements Comparable<Appointment>{
         return this.timeSlot.compareTo(other.timeSlot);
     }
 
+    /**    (non-Javadoc)
+     * Output FULL health professional details
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
-        return "Patient:" + patientName 
-                + " | Mobile:" + patientMobile 
-                + " | Time:" + timeSlot
-                + " | StaffID:" + assignedProfessional.getId();
+        StringBuilder sb = new StringBuilder();
+        sb.append("==== Appointment Record ====\n");
+        sb.append("Patient Name: ").append(patientName).append("\n");
+        sb.append("Patient Mobile: ").append(patientMobile).append("\n");
+        sb.append("Booking Time Slot: ").append(timeSlot).append("\n");
+        sb.append("Attending staff info:\n");
+        sb.append("ID: ").append(assignedProfessional.getId()).append("\n");
+        sb.append("Name: ").append(assignedProfessional.getName()).append("\n");
+        sb.append("Title: ").append(assignedProfessional.getTitle()).append("\n");
+        sb.append("Gender: ").append(assignedProfessional.getGender()).append("\n");
+        return sb.toString();
     }
 }
