@@ -51,6 +51,21 @@ public class AppointmentManager {
         return false;
     }
 
+    /**
+     * Check if a time slot is available for a given staff
+     * @param staffId
+     * @param slot
+     * @return
+     */
+    public boolean isSlotAvailable(int staffId, String slot) {
+        for (Appointment apt : allAppointments) {
+            if (apt.getAssignedProfessional().getId() == staffId && apt.getTimeSlot().equals(slot)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     // Check if target booking time has not passed yet
     private boolean isSlotNotPast(String slot){
         return isTimeBefore(simulationCurrentTime, slot);
