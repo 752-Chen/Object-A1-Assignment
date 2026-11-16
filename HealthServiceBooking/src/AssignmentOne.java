@@ -176,7 +176,8 @@ public class AssignmentOne {
             System.out.println("2. Create new appointment");
             System.out.println("3. Check my appointments (enter mobile number)");
             System.out.println("4. Cancel my appointment (enter mobile number)");
-            System.out.println("5. Exit system");
+            System.out.println("5. Check slot availability (enter staff ID and time)");
+            System.out.println("6. Exit system");
             System.out.print("Please enter your choice(1-5): ");
 
             int menuChoice = -1;
@@ -184,7 +185,7 @@ public class AssignmentOne {
                 String rawInput = scanner.nextLine().trim();
                 menuChoice = Integer.parseInt(rawInput);
             } catch (Exception e) {
-                System.out.println("Invalid input, please input number 1-5");
+                System.out.println("Invalid input, please input number 1-6");
                 continue;
             }
 
@@ -272,7 +273,48 @@ public class AssignmentOne {
                     break;
                 }
 
-                case 5:
+                case 5: {
+                    // Check if a specific doctor's time slot is available
+                    System.out.print("Enter staff ID to check: ");
+                    int checkStaffId = -1;
+                    try {
+                        String idStr = scanner.nextLine().trim();
+                        checkStaffId = Integer.parseInt(idStr);
+                    } catch (Exception e) {
+                        System.out.println("ID must be a number.");
+                        break;
+                    }
+
+                    HealthProfessional checkHp = null;
+                    for (HealthProfessional hp : allStaffList) {
+                        if (hp.getId() == checkStaffId) {
+                            checkHp = hp;
+                            break;
+                        }
+                    }
+                    if (checkHp == null) {
+                        System.out.println("Cannot find this staff ID!");
+                        break;
+                    }
+
+                    System.out.print("Enter time slot to check (e.g 09:00): ");
+                    String checkSlot = scanner.nextLine().trim();
+
+                    if (!manager.isValidTimeSlot(checkSlot)) {
+                        System.out.println("[WARNING] " + checkSlot + " is not a valid clinic time slot.");
+                        break;
+                    }
+
+                    boolean available = manager.isSlotAvailable(checkStaffId, checkSlot);
+                    if (available) {
+                        System.out.println("[AVAILABLE] Dr. " + checkHp.getName() + " is free at " + checkSlot + ", you can book this slot.");
+                    } else {
+                        System.out.println("[BOOKED] Dr. " + checkHp.getName() + " is already booked at " + checkSlot + ", this slot is not available.");
+                    }
+                    break;
+                }
+
+                case 6:
                     running = false;
                     System.out.println("System exit. Goodbye!");
                     break;
